@@ -1,0 +1,35 @@
+# Vital directories (SDK, compiler, sysconfig)
+
+message("CPU_FAMILY = ${CPU_FAMILY}")
+if (NOT DEFINED CPU_FAMILY)
+  message(FATAL_ERROR "CPU_FAMILY not defined")
+
+elseif (${CPU_FAMILY} STREQUAL "cc13xx" OR ${CPU_FAMILY} STREQUAL "cc26xx")
+  message("SDK simplelink_cc13xx_cc26xx_sdk_8_33_00_16")
+  set(SDK_ROOT        $ENV{HOME}/ti/simplelink_cc13xx_cc26xx_sdk_8_33_00_16)
+
+elseif (${CPU_FAMILY} STREQUAL "cc23xx" OR ${CPU_FAMILY} STREQUAL "cc27xx")
+  message("SDK simplelink_lowpower_f3_sdk_9_23_00_27")
+  set(SDK_ROOT        $ENV{HOME}/ti/simplelink_lowpower_f3_sdk_9_23_00_27)
+
+else()
+  message(FATAL_ERROR "CPU_FAMILY '${CPU_FAMILY}' not recognised")
+endif()
+
+set(FREERTOS    ${SDK_ROOT}/source/third_party/freertos)
+
+#set(COMPILER_ROOT   $ENV{HOME}/ti/ti-cgt-armllvm_5.1.1.LTS)
+set(COMPILER_ROOT   $ENV{HOME}/ti/ccs1281/ccs/tools/compiler/ti-cgt-armllvm_3.2.2.LTS)
+
+#set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+# skip a test compile as that fails - don't know what is causing that
+set(CMAKE_C_COMPILER_WORKS 1)
+set(SYSCONFIG_ROOT  $ENV{HOME}/ti/sysconfig_1.28.0)
+
+set(CMAKE_MAKE_PROGRAM  "gmake -G'Unix Makefiles'")
+
+# Use find_program() to find the compiler and sysconfig command
+#   this assumes we are running on Linux
+find_program(CMAKE_C_COMPILER tiarmclang PATHS ${COMPILER_ROOT}/bin REQUIRED NO_DEFAULT_PATH)
+find_program(CRC_TOOL crc_tool PATHS ${SDK_ROOT}/tools/common/crc_tool REQUIRED)
+find_program(SYSCONFIG_CLI sysconfig_cli.sh PATHS ${SYSCONFIG_ROOT} REQUIRED NO_DEFAULT_PATH)
