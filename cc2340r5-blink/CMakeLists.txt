@@ -118,9 +118,6 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/src/blink.c
     ${SYSCONFIG_GEN_CFILES}
 )
-    #${SDK_ROOT}/source/ti/posix/freertos/pthread.c
-    #${SDK_ROOT}/source/ti/posix/freertos/sleep.c
-    #${SDK_ROOT}/source/ti/posix/freertos/PTLS.c
 
 # Cause C files to depend on the SysConfig generated compiler options file
 message("OBJECT_DEPENDS = ${OBJECT_DEPENDS}")
@@ -164,8 +161,6 @@ link_libraries(
     ${CMAKE_SOURCE_DIR}/lpf3_freertos.cmd
     ${SYSCONFIG_GEN_LNKCMD}
 )
-#message("SGL ${SYSCONFIG_GEN_LNKCMD}")
-    #${CMAKE_SOURCE_DIR}/cc2340r5.linkcmd
 
 #---------------------------------------------------------------------
 # Final configuration that pulls everything together
