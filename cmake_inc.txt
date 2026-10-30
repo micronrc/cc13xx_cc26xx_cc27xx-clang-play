@@ -24,6 +24,7 @@ set(COMPILER_ROOT   $ENV{HOME}/ti/ccs1281/ccs/tools/compiler/ti-cgt-armllvm_3.2.
 #set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 # skip a test compile as that fails - don't know what is causing that
 set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
 set(SYSCONFIG_ROOT  $ENV{HOME}/ti/sysconfig_1.28.0)
 
 set(CMAKE_MAKE_PROGRAM  "gmake -G'Unix Makefiles'")
@@ -31,5 +32,7 @@ set(CMAKE_MAKE_PROGRAM  "gmake -G'Unix Makefiles'")
 # Use find_program() to find the compiler and sysconfig command
 #   this assumes we are running on Linux
 find_program(CMAKE_C_COMPILER tiarmclang PATHS ${COMPILER_ROOT}/bin REQUIRED NO_DEFAULT_PATH)
+set(CMAKE_CXX_COMPILER ${CMAKE_C_COMPILER})
 find_program(CRC_TOOL crc_tool PATHS ${SDK_ROOT}/tools/common/crc_tool REQUIRED)
 find_program(SYSCONFIG_CLI sysconfig_cli.sh PATHS ${SYSCONFIG_ROOT} REQUIRED NO_DEFAULT_PATH)
+
